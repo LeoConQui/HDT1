@@ -29,10 +29,23 @@ public class RadioTest {
 	} 
 
 	@Test
-	public void cambiarAAM() throws Exception{
+	public void cambiaraAM() throws Exception{
 		radio.setFrequence("AM");
 		assertEquals("AM", radio.getFrequence());
 	}
 
+	@Test
+	public void ForwardRadioAM() throws Exception {
+		radio.setFrequence("AM");
+		radio.Forward();
+		assertEquals(540, radio.getFrequence());
+	}
 
+	@Test
+	public void BackwardRadioAM() throws Exception {
+		radio.setFrequence("AM");
+		radio.setAMActualStation(530);
+		radio.Forward();
+		assertEquals(1610, radio.getFrequence());
+	}
 }
