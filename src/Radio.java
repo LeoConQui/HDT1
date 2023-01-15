@@ -45,6 +45,10 @@
         this.encendido = false;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isOn() {
         if (encendido) {
@@ -54,6 +58,11 @@
         }
     }
 
+    
+    /** 
+     * @param freq
+     * @throws Exception
+     */
     @Override
     public void setFrequence(String freq) throws Exception {
         if (freq.equals("AM") || freq.equals("FM") ) {
@@ -63,6 +72,10 @@
         }
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getFrequence() {
         return this.frequence;
@@ -108,41 +121,77 @@
         }
     }
 
+    
+    /** 
+     * @return double
+     */
     @Override
     public double getFMActualStation() {
         return this.actualFMstation;
     }
 
+    
+    /** 
+     * @return int
+     */
     @Override
     public int getAMActualStation() {
         return this.actualAMstation;
     }
 
+    
+    /** 
+     * @param actualStation
+     */
     @Override
     public void setFMActualStation(double actualStation) {
         this.actualFMstation = actualStation;
     }
 
+    
+    /** 
+     * @param actualStation
+     */
     @Override
     public void setAMActualStation(int actualStation) {
         this.actualAMstation = actualStation;
     }
 
+    
+    /** 
+     * @param actualStation
+     * @param slot
+     */
     @Override
     public void saveFMStation(double actualStation, int slot){
         this.savedFMstations[slot] = actualStation;
     }
 
+    
+    /** 
+     * @param actualStation
+     * @param slot
+     */
     @Override
     public void saveAMStation(int actualStation, int slot){
         this.savedAMstations[slot] = actualStation;
     }
 
+    
+    /** 
+     * @param slot
+     * @return double
+     */
     @Override
     public double getFMSlot(int slot){
         return this.savedFMstations[slot];
     }
 
+    
+    /** 
+     * @param slot
+     * @return int
+     */
     @Override
     public int getAMSlot(int slot){
         return this.savedAMstations[slot];
