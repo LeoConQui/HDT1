@@ -1,78 +1,118 @@
 import java.util.Scanner;
-public class IRadio {
-    private Scanner _in;
-    private IRadio miRadio;
-    
-    public RadioConsoleUI(Scanner _scanner, IRadio _radio) {
-        _in = _scanner;
-        miRadio = _radio;
-    }
 
+
+public class menu {
+
+    public static void main(String[] args) throws Exception{;
+
+    Radio miRadio = new Radio();
+	Scanner _in = new Scanner(System.in);
+
+    int opcion;
     do {
 
-        System.println("********************************************");
-        System.println("*                                          *");
-        System.println("*                   MENU                   *");
-        System.println("*                                          *");
-        System.println("*  1.  Seleccion de la frecuencia          *");
-        System.println("*  2.  Cambiar emisora (adelante)          *");
-        System.println("*  3.  Cambiar emisora (atras)             *");
-        System.println("*  4.  Emisora AM actual                   *");
-        System.println("*  5.  Emisora FM actual                   *");
-        System.println("*  6.  Guardar emisora AM actual en # slot *");
-        System.println("*  7.  Guardar emisora FM actual en # slot *");
-        System.println("*  8.  Obtener # slot AM                   *");
-        System.println("*  9.  Obtener # slot FM                   *");
-        System.println("*  10. Desea encender/apgar                *");
-        System.println("*                                          *");
-        System.println("********************************************");
-        System.println("\n");
+        System.out.println("********************************************");
+        System.out.println("*                                          *");
+        System.out.println("*                   MENU                   *");
+        System.out.println("*                                          *");
+        System.out.println("*  1.  Seleccion de la frecuencia          *");
+        System.out.println("*  2.  Cambiar emisora (adelante)          *");
+        System.out.println("*  3.  Cambiar emisora (atras)             *");
+        System.out.println("*  4.  Emisora AM actual                   *");
+        System.out.println("*  5.  Emisora FM actual                   *");
+        System.out.println("*  6.  Guardar emisora AM actual en # slot *");
+        System.out.println("*  7.  Guardar emisora FM actual en # slot *");
+        System.out.println("*  8.  Obtener # slot AM                   *");
+        System.out.println("*  9.  Obtener # slot FM                   *");
+        System.out.println("*  10. Desea encender/apgar                *");
+        System.out.println("*                                          *");
+        System.out.println("********************************************");
+        System.out.println("\n");
 
-        while (this.encendido == true) {
-            System.println("Ingrese una opcion");
-            int opcion = _in.nextInt();
+        while (miRadio.isOn() == true) {
+            System.out.println("Ingrese una opcion");
+            opcion = _in.nextInt();
+            _in.nextLine();
             switch (opcion) {
                 case 1:
-                    setFrequence();
+                    System.out.println("Ingrese frecuencia AM o FM");
+                    String freq = _in.nextLine();
+                    miRadio.setFrequence(freq);
                     break;
                 case 2:
-                    Forward();
+                    miRadio.Forward();
                     break;
                 case 3:
-                    Backward();
+                    miRadio.Backward();
                     break;
                 case 4:
-                    getAMActualStation();
+                    miRadio.getAMActualStation();
                     break;
                 case 5:
-                    getFMActualStation();
+                    miRadio.getFMActualStation();
                     break;  
+
+
+
                 case 6:
-                    saveAMStation();
+                    System.out.println("Ingrese estación que desee guardar");
+                    int freqAM = _in.nextInt();
+                    _in.nextLine();
+                    System.out.println("Ingrese el slot en que lo quiere guardar. - De 1 a 12 - ");
+                    int slotPosAM = _in.nextInt();
+                    _in.nextLine();
+                    if (miRadio.getFrequence().equals("AM")) {
+                        miRadio.saveAMStation(freqAM, slotPosAM-1);
+                    }
+                    
                     break;
                 case 7:
-                    saveFMStation();
-                    break;
+                    System.out.println("Ingrese estación que desee guardar");
+                    int freqFM = _in.nextInt();
+                    _in.nextLine();
+                    System.out.println("Ingrese el slot en que lo quiere guardar. - De 1 a 12 - ");
+                    int slotPosFM = _in.nextInt();
+                    _in.nextLine();
+                    if (miRadio.getFrequence().equals("AM")) {
+                        miRadio.saveAMStation(freqFM, slotPosFM-1);
+                    }
+                    break;                
+
+
                 case 8:
-                    getAMSlot();
+                    System.out.println("Ingrese el número de slot que desea ver. - Entre 1 a 12 - ");
+                    int slotAM = _in.nextInt();
+                    _in.nextLine();
+                    if (miRadio.getFrequence().equals("AM")) {
+                        miRadio.getAMSlot(slotAM-1);
+                    }
                     break;
+
                 case 9:
-                    getFMSlot();
+                    System.out.println("Ingrese el número de slot que desea ver. - Entre 0 a 12 - ");
+                    int slotFM = _in.nextInt();
+                    _in.nextLine();
+                    if (miRadio.getFrequence().equals("FM")) {
+                        miRadio.getAMSlot(slotFM);
+                    }
                     break;
+
                 case 10:
-                    System.println("Si desea apagar ingrese 1 si desea envender ingrese 2");
+                    System.out.println("Si desea apagar ingrese 1 si desea encender ingrese 2");
                     int op = _in.nextInt();
+                    _in.nextLine();
                     if (op == 1) {
-                        off();
+                        miRadio.off();
                         break;
                     }else{
-                        on();
+                        miRadio.on();
                         break;
                     }
 
                 default:
-                    System.println("Ingeso una opcion invalida \n");
+                    System.out.println("Ingeso una opcion invalida \n");
             }
         }
-    }while (opcion != 10);
+    } while (opcion <= 10);
+}
 }
